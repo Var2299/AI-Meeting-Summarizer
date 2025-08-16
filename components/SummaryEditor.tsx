@@ -8,19 +8,18 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
 interface SummaryEditorProps {
   summary: string;
-  onSummaryChange: (summary: string) => void; // optional, for parent to update UI but not save
-  onSaveSummary: (editedSummary: string) => void;
-  isSaving: boolean;
+  summaryId: string; // ID needed for API PUT
+  onSummaryChange?: (summary: string) => void; // optional, for parent to update UI
 }
 
 export default function SummaryEditor({
   summary,
+  summaryId,
   onSummaryChange,
-  onSaveSummary,
-  isSaving,
 }: SummaryEditorProps) {
   const [editedSummary, setEditedSummary] = useState(summary);
   const [lastSavedSummary, setLastSavedSummary] = useState(summary);
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     setEditedSummary(summary);
@@ -31,10 +30,27 @@ export default function SummaryEditor({
     setEditedSummary(value);
   };
 
-  const handleSave = () => {
-    onSaveSummary(editedSummary); // parent saves only when button clicked
-    setLastSavedSummary(editedSummary);
-    if (onSummaryChange) onSummaryChange(editedSummary); // update parent UI if needed
+  const handleSave = async () => {
+    setIsSaving(true);
+    try {
+     const res = await fetch('/api/save-summary', {
+  method: 'PUT',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    id: summaryId,          // rename to match API
+    summary: editedSummary, // rename to match API
+  }),
+});
+
+      if (!res.ok) throw new Error('Failed to save summary');
+      setLastSavedSummary(editedSummary);
+      if (onSummaryChange) onSummaryChange(editedSummary);
+    } catch (err) {
+      console.error(err);
+      alert('Error saving summary. Try again.');
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const handleRevert = () => {
