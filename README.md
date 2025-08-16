@@ -21,6 +21,7 @@ A full-stack application that uses AI to summarize meeting transcripts and share
 - **Deployment**: Static export compatible
 
 <img width="1262" height="935" alt="image" src="https://github.com/user-attachments/assets/a29afa9f-2f74-4e49-80f0-7658e7ba4217" />
+
 ---
   
 <img width="1258" height="467" alt="image" src="https://github.com/user-attachments/assets/5db3ecac-62ea-4bb0-9b1f-ba27321786cb" />
