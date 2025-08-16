@@ -18,7 +18,6 @@ A full-stack application that uses AI to summarize meeting transcripts and share
 - **AI API**: Groq Llama 3 8B model
 - **Database**: MongoDB
 - **Email**: Nodemailer with Gmail SMTP
-- **Deployment**: Static export compatible
 
 ## Usage
 
