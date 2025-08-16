@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import TranscriptUpload from '@/components/TranscriptUpload';
 import SummaryGenerator from '@/components/SummaryGenerator';
 import SummaryEditor from '@/components/SummaryEditor';
@@ -15,44 +15,44 @@ export default function Home() {
   const [isSaving, setIsSaving] = useState(false);
   const [summaryId, setSummaryId] = useState<string | null>(null);
 
+  const summaryContainerRef = useRef<HTMLDivElement>(null);
+
+  // Handles AI summary generation
   const handleSummaryGenerated = async (generatedSummary: string, prompt: string) => {
     setSummary(generatedSummary);
     setCustomPrompt(prompt);
-    
+
     // Auto-save the summary
     await handleSaveSummary(generatedSummary, prompt);
+
+    // Auto-scroll to summary container after DOM update
+    setTimeout(() => {
+      summaryContainerRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+
   };
 
+  // Handles saving summary (new or update)
   const handleSaveSummary = async (summaryToSave?: string, prompt?: string) => {
-    const summaryData = summaryToSave || summary;
-    const promptData = prompt || customPrompt;
-    
+    const summaryData = summaryToSave ?? summary;
+    const promptData = prompt ?? customPrompt;
+
     setIsSaving(true);
-    
+
     try {
       if (summaryId) {
         // Update existing summary
         const response = await fetch('/api/save-summary', {
           method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            id: summaryId,
-            summary: summaryData,
-          }),
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: summaryId, summary: summaryData }),
         });
-
-        if (!response.ok) {
-          throw new Error('Failed to update summary');
-        }
+        if (!response.ok) throw new Error('Failed to update summary');
       } else {
         // Create new summary
         const response = await fetch('/api/save-summary', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             transcript,
             customPrompt: promptData,
@@ -60,10 +60,7 @@ export default function Home() {
             meetingTitle: meetingTitle || 'Untitled Meeting',
           }),
         });
-
-        if (!response.ok) {
-          throw new Error('Failed to save summary');
-        }
+        if (!response.ok) throw new Error('Failed to save summary');
 
         const { id } = await response.json();
         setSummaryId(id);
@@ -77,49 +74,7 @@ export default function Home() {
   };
 
   const handleEmailSent = () => {
-    // Optional: Add any post-email-send logic here
     console.log('Email sent successfully');
-  };
-
-  const handleGenerateStart = () => {
-    setIsGenerating(true);
-  };
-
-  const handleGenerateComplete = (generatedSummary: string, prompt: string) => {
-    setIsGenerating(false);
-    handleSummaryGenerated(generatedSummary, prompt);
-  };
-
-  const modifiedSummaryGenerator = {
-    ...SummaryGenerator,
-    handleGenerateSummary: async function(transcript: string, customPrompt: string) {
-      handleGenerateStart();
-      
-      try {
-        const response = await fetch('/api/generate-summary', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            transcript: transcript.trim(),
-            customPrompt: customPrompt.trim(),
-          }),
-        });
-
-        if (!response.ok) {
-          const error = await response.json();
-          throw new Error(error.error || 'Failed to generate summary');
-        }
-
-        const { summary } = await response.json();
-        handleGenerateComplete(summary, customPrompt);
-      } catch (error) {
-        console.error('Error generating summary:', error);
-        alert(`Error generating summary: ${error instanceof Error ? error.message : 'Unknown error'}`);
-        setIsGenerating(false);
-      }
-    }
   };
 
   return (
@@ -144,17 +99,19 @@ export default function Home() {
 
           <SummaryGenerator
             transcript={transcript}
-            onSummaryGenerated={handleGenerateComplete}
+            onSummaryGenerated={handleSummaryGenerated}
             isGenerating={isGenerating}
           />
 
           {summary && (
-            <SummaryEditor
-              summary={summary}
-              onSummaryChange={setSummary}
-              onSaveSummary={() => handleSaveSummary()}
-              isSaving={isSaving}
-            />
+            <div ref={summaryContainerRef}>
+              <SummaryEditor
+                summary={summary}
+                onSummaryChange={setSummary} // keeps it editable
+                onSaveSummary={() => handleSaveSummary()} // Save button works
+                isSaving={isSaving}
+              />
+            </div>
           )}
 
           {summary && (
