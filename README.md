@@ -29,6 +29,8 @@ A full-stack application that uses AI to summarize meeting transcripts and share
 5. **Share**: Add email recipients and send the summary
 
 ---
+## Upload Transcript
+---
 
 <img width="1262" height="935" alt="image" src="https://github.com/user-attachments/assets/a29afa9f-2f74-4e49-80f0-7658e7ba4217" />
 
