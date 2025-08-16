@@ -20,6 +20,14 @@ A full-stack application that uses AI to summarize meeting transcripts and share
 - **Email**: Nodemailer with Gmail SMTP
 - **Deployment**: Static export compatible
 
+## Usage
+
+1. **Upload Transcript**: Upload a .txt file or paste meeting notes
+2. **Set Instructions**: Choose a template or write custom prompt
+3. **Generate Summary**: Click "Generate Summary" to get AI summary
+4. **Edit (Optional)**: Modify the summary as needed
+5. **Share**: Add email recipients and send the summary
+
 ---
 
 <img width="1262" height="935" alt="image" src="https://github.com/user-attachments/assets/a29afa9f-2f74-4e49-80f0-7658e7ba4217" />
@@ -100,14 +108,6 @@ A full-stack application that uses AI to summarize meeting transcripts and share
    ```bash
    npm run dev
    ```
-
-## Usage
-
-1. **Upload Transcript**: Upload a .txt file or paste meeting notes
-2. **Set Instructions**: Choose a template or write custom prompt
-3. **Generate Summary**: Click "Generate Summary" to get AI summary
-4. **Edit (Optional)**: Modify the summary as needed
-5. **Share**: Add email recipients and send the summary
 
 ## API Endpoints
 
