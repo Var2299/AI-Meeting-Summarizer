@@ -104,6 +104,3 @@ npm run build
 
 The built files will be in the `out/` directory, ready for deployment to any static hosting service.
 
-## License
-
-MIT License
