@@ -34,44 +34,50 @@ export default function Home() {
 
   // Handles saving summary (new or update)
   const handleSaveSummary = async (summaryToSave?: string, prompt?: string) => {
-    const summaryData = summaryToSave ?? summary;
-    const promptData = prompt ?? customPrompt;
+  const summaryData = summaryToSave; // use editor's value directly
+  const promptData = prompt ?? customPrompt;
 
-    setIsSaving(true);
+  setIsSaving(true);
 
-    try {
-      if (summaryId) {
-        // Update existing summary
-        const response = await fetch('/api/save-summary', {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id: summaryId, summary: summaryData }),
-        });
-        if (!response.ok) throw new Error('Failed to update summary');
-      } else {
-        // Create new summary
-        const response = await fetch('/api/save-summary', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            transcript,
-            customPrompt: promptData,
-            summary: summaryData,
-            meetingTitle: meetingTitle || 'Untitled Meeting',
-          }),
-        });
-        if (!response.ok) throw new Error('Failed to save summary');
+  try {
+    if (summaryId) {
+      // Update existing summary
+      const response = await fetch('/api/save-summary', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: summaryId,
+          summary: summaryData,      // <- pass latest summary explicitly
+          customPrompt: promptData,  // optional, send latest prompt
+        }),
+      });
+      if (!response.ok) throw new Error('Failed to update summary');
+    } else {
+      // Create new summary
+      const response = await fetch('/api/save-summary', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          transcript,
+          customPrompt: promptData,
+          summary: summaryData,
+          meetingTitle: meetingTitle || 'Untitled Meeting',
+        }),
+      });
+      if (!response.ok) throw new Error('Failed to save summary');
 
-        const { id } = await response.json();
-        setSummaryId(id);
-      }
-    } catch (error) {
-      console.error('Error saving summary:', error);
-      alert('Error saving summary. Please try again.');
-    } finally {
-      setIsSaving(false);
+      const { id } = await response.json();
+      setSummaryId(id);
     }
-  };
+  } catch (error) {
+    console.error('Error saving summary:', error);
+    alert('Error saving summary. Please try again.');
+  } finally {
+    setIsSaving(false);
+  }
+};
+
+
 
   const handleEmailSent = () => {
     console.log('Email sent successfully');
@@ -106,11 +112,12 @@ export default function Home() {
           {summary && (
             <div ref={summaryContainerRef}>
               <SummaryEditor
-                summary={summary}
-                onSummaryChange={setSummary} // keeps it editable
-                onSaveSummary={() => handleSaveSummary()} // Save button works
-                isSaving={isSaving}
-              />
+  summary={summary}
+  summaryId={summaryId || ''}   // fallback to empty string if null
+  onSummaryChange={setSummary}
+/>
+
+
             </div>
           )}
 
