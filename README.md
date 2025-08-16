@@ -138,11 +138,4 @@ A full-stack application that uses AI to summarize meeting transcripts and share
 
 ## Deployment
 
-The app is configured for static export:
-
-```bash
-npm run build
-```
-
-The built files will be in the `out/` directory, ready for deployment to any static hosting service.
-
+Deployable on Vercel (frontend + API routes) with MongoDB Atlas and Gmail SMTP.
