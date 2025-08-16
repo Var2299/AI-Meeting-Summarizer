@@ -20,6 +20,22 @@ A full-stack application that uses AI to summarize meeting transcripts and share
 - **Email**: Nodemailer with Gmail SMTP
 - **Deployment**: Static export compatible
 
+<img width="1262" height="935" alt="image" src="https://github.com/user-attachments/assets/a29afa9f-2f74-4e49-80f0-7658e7ba4217" />
+  
+<img width="1258" height="467" alt="image" src="https://github.com/user-attachments/assets/5db3ecac-62ea-4bb0-9b1f-ba27321786cb" />
+
+<img width="1222" height="842" alt="image" src="https://github.com/user-attachments/assets/bfdd14a3-b83d-4376-9c10-c93dea1d8f6d" />
+
+<img width="1278" height="531" alt="image" src="https://github.com/user-attachments/assets/da3abd98-0d33-431d-996b-d0effc2d61a4" />
+
+<img width="817" height="371" alt="image" src="https://github.com/user-attachments/assets/2b9944ba-fe7f-4e5c-ae40-d76e6ea87962" />
+
+<img width="1723" height="47" alt="image" src="https://github.com/user-attachments/assets/383fc144-a5ca-4eda-b94b-02622f943d92" />
+
+<img width="1716" height="760" alt="image" src="https://github.com/user-attachments/assets/f3b2d4ae-e74e-44c7-967d-97ab46f88a64" />
+
+<img width="1221" height="302" alt="image" src="https://github.com/user-attachments/assets/c4cb1f93-9fb3-4b50-b107-2cf4773ad709" />
+
 ## Setup Instructions
 
 1. **Clone and Install**
