@@ -13,7 +13,7 @@ A full-stack application that uses AI to summarize meeting transcripts and share
 
 ## Tech Stack
 
-- **Frontend**: Next.js 13 with App Router, React, TypeScript
+- **Frontend**: Next.js with App Router, React, TypeScript
 - **UI Components**: shadcn/ui with Tailwind CSS
 - **AI API**: Groq Llama 3 8B model
 - **Database**: MongoDB
