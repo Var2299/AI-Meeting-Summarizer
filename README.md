@@ -39,20 +39,18 @@ A full-stack application that uses AI to summarize meeting transcripts and share
 <img width="1258" height="467" alt="image" src="https://github.com/user-attachments/assets/5db3ecac-62ea-4bb0-9b1f-ba27321786cb" />
 
 ---
+## Edit 
 
 <img width="1222" height="842" alt="image" src="https://github.com/user-attachments/assets/bfdd14a3-b83d-4376-9c10-c93dea1d8f6d" />
 
 ---
+## Email Sharing
 
 <img width="1278" height="531" alt="image" src="https://github.com/user-attachments/assets/da3abd98-0d33-431d-996b-d0effc2d61a4" />
 
 ---
 
 <img width="817" height="371" alt="image" src="https://github.com/user-attachments/assets/2b9944ba-fe7f-4e5c-ae40-d76e6ea87962" />
-
----
-
-## Email Sharing
 
 ---
 
